@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            /* Black background */
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+            /* White text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Container Styles */
+        .container {
+            background-color: rgb(32, 30, 30);
+            /* Dark background */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(28, 27, 27, 0.1);
+            width: 100%;
+            max-width: 600px;
+            /* Limit max width of the container */
+            overflow: hidden;
+        }
+
+        /* Heading Styles */
+        h2 {
+            color: #ffffff;
+            /* Orange color for heading */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Input Fields */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="phone"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #b1a5a5;
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            /* Light background for inputs */
+            color: #2b2929;
+        }
+
+        /* Button Styles */
+        button[type="submit"] {
+            background-color: #bd6b00;
+            /* Orange button */
+            color: rgb(255, 255, 255);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #db8300e8;
+            /* Darker orange on hover */
+        }
+
+        .btn-edit {
+            background-color: #28a745;
+            /* Green button */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-edit:hover {
+            background-color: #218838;
+            /* Darker green on hover */
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            /* Red button */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+            /* Darker red on hover */
+        }
+
+        /* Center Buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            /* Center buttons horizontally */
+            gap: 10px;
+            /* Add space between buttons */
+            margin-top: 20px;
+            /* Add margin at the top */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                width: 100%;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"],
+            input[type="phone"] {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            button[type="submit"],
+            .btn-edit,
+            .btn-delete {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Edit User</h2>
+        <form id="edit-user-form">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" id="phone" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+
+        <!-- Centered Edit and Delete Buttons -->
+        <div class="button-container">
+            <button type="button" class="btn btn-edit">Edit</button>
+            <button type="button" class="btn btn-delete">Delete</button>
+        </div>
+    </div>
+    <script src="../public/app.js"></script>
+</body>
+
+</html>
