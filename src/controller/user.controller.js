@@ -143,8 +143,8 @@ const updateUser = asyncHandler(async (req, res) => {
     const { userId } = req.params;
     const { name, phone } = req.body;
 
-    console.log('Updating user with ID:', userId);
-    console.log('Data received:', { name, phone });
+    // console.log('Updating user with ID:', userId);
+    // console.log('Data received:', { name, phone });
 
     const updatedUser = await User.findByIdAndUpdate(userId,
         {
@@ -160,7 +160,7 @@ const updateUser = asyncHandler(async (req, res) => {
         throw new ApiError(404, "User not found");
     }
 
-    console.log('User updated successfully:', updatedUser);
+    // console.log('User updated successfully:', updatedUser);
 
     return res.status(200)
         .json(new ApiResponse(200,

@@ -1,0 +1,45 @@
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* Container Styles */
+.container {
+    background-color: rgb(32, 30, 30);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(28, 27, 27, 0.1);
+    text-align: center;
+}
+
+/* Heading Styles */
+h1 {
+    color: #ffffff;
+}
+
+.btn-primary,
+.btn-secondary {
+    background-color: #bd6b00;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    background-color: #db8300e8;
+}
