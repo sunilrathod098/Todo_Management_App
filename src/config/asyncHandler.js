@@ -1,4 +1,4 @@
-// in this code we use promises
+// in this code we use promises to handle the async and await
 const asyncHandler = (requestHandler) => {
     return (req, res, next) => {
         Promise.resolve(requestHandler(req, res, next))
