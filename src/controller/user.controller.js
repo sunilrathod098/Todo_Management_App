@@ -25,7 +25,6 @@ const generateAccessTokenAndRefreshToken = async (userId) => {
 //registerUser function-backend
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password, phone, profession } = req.body;
-    // console.log("email:", email)
 
     //validation - check
     if (
@@ -74,8 +73,6 @@ const loginUser = asyncHandler(async (req, res) => {
 
     //extract login credinatials from the body
     const { email, password } = req.body;
-
-    // console.log(email) // debbuging the body
 
     if (!email || !password) {
         throw new ApiError(400, "email or password is required")
@@ -143,9 +140,6 @@ const updateUser = asyncHandler(async (req, res) => {
     const { userId } = req.params;
     const { name, phone } = req.body;
 
-    // console.log('Updating user with ID:', userId);
-    // console.log('Data received:', { name, phone });
-
     const updatedUser = await User.findByIdAndUpdate(userId,
         {
             name,
@@ -159,8 +153,6 @@ const updateUser = asyncHandler(async (req, res) => {
     if (!updatedUser) {
         throw new ApiError(404, "User not found");
     }
-
-    // console.log('User updated successfully:', updatedUser);
 
     return res.status(200)
         .json(new ApiResponse(200,
