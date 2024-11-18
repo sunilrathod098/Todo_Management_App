@@ -61,15 +61,15 @@ Alternatively, download the project as a ZIP file and extract it.
 *4. Add a .env File*
 - Create a .env file in the root directory with the following variables:
 
-- *MONGODB_URI*=<Your MongoDB connection string>
-- *ACCESS_TOKEN_SECRET*=<Your access token secret>
-- *REFRESH_TOKEN_SECRET*=<Your refresh token secret>
+- *MONGODB_URI*= (Your MongoDB connection string)
+- *ACCESS_TOKEN_SECRET*= (Your access token secret)
+- *REFRESH_TOKEN_SECRET*= (Your refresh token secret)
 - *ACCESS_TOKEN_EXPIRY*=1d
 - *REFRESH_TOKEN_EXPIRY*=30d
 - *PORT*=5000
 - *CORS_ORIGIN*=*
-- Replace <Your MongoDB connection string> with your MongoDB URI.
-- Replace <Your access token secret> and <Your refresh token secret> with strong, random strings.
+- Replace (Your MongoDB connection string) with your MongoDB URI.
+- Replace (Your access token secret and Your refresh token secret) with strong, random strings.
 
 *5. Run the Application*
 - Start the server:  **npm run dev**
