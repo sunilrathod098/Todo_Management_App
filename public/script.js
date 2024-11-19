@@ -92,7 +92,7 @@ async function updateUser(userId) {
 
         if (response.ok) {
             alert('User updated successfully!');
-            window.location.href = 'index.html'; // Redirect to the home page
+            window.location.href = 'home.html'; // Redirect to the home page
         } else {
             console.error('Error updating user:', result.message || 'Unknown error');
             alert(result.message || 'Failed to update user');
