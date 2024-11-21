@@ -25,7 +25,7 @@ const userSchema = new Schema({
     profession: {
         type: String,
         required: [true, 'Please add a profession'],
-    },
+    }
 }, {
     timestamps: true,
 });

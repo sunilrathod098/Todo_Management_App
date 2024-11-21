@@ -3,6 +3,7 @@ import { ApiResponse } from "../config/ApiResponse.js";
 import { asyncHandler } from "../config/asyncHandler.js";
 import { User } from "../model/user.model.js";
 
+
 //generate token function-backend
 const generateAccessTokenAndRefreshToken = async (userId) => {
     try {
@@ -24,11 +25,11 @@ const generateAccessTokenAndRefreshToken = async (userId) => {
 
 //registerUser function-backend
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password, phone, profession } = req.body;
+    const { name, email, password, phone, profession, comment } = req.body;
 
     //validation - check
     if (
-        [name, email, password, phone, profession].some((field) => field?.trim() === "")
+        [name, email, password, phone, profession, comment].some((field) => field?.trim() === "")
     ) {
         throw new ApiError(400, "All fields are required")
     }
@@ -48,7 +49,8 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         phone,
-        profession
+        profession,
+        comment
     })
 
     //remove password and refreshToken from the create user
@@ -180,6 +182,8 @@ const deleteUser = asyncHandler(async (req, res) => {
         new ApiResponse(200, null, "User deleted successfully")
     );
 });
+
+
 
 
 export {
