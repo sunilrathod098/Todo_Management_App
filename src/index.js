@@ -6,12 +6,14 @@ dotenv.config({
     path: './.env'
 })
 
+const PORT = process.env.PORT || 5000;
 
 //database connection
 connectDB()
     .then(() => {
-        app.listen(process.env.PORT || 5000, () => {
-            console.log(`Server running on http://localhost:${process.env.PORT}`)
+        app.listen(PORT, () => {
+            console.log(` Server running on http://localhost:${process.env.PORT}`)
+            console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
         })
         app.on("error", (err) => {
             console.log("Error: ", err);
@@ -19,7 +21,7 @@ connectDB()
         })
 
     }).catch((err) => {
-        console.log("Database connection is faild !! ", err);
+        console.log("Database connection is failed !! ", err);
     })
 
 

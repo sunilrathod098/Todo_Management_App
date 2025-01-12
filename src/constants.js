@@ -1,2 +1,2 @@
 //database name
-export const DB_NAME = "User-WebAppl"
+export const DB_NAME = "user-todos-new"

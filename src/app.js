@@ -2,7 +2,11 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import path from "path";
+import swaggerUi from "swagger-ui-express";
 import { fileURLToPath } from "url";
+import swaggerDocs from "./config/SwaggerConfig.js";
+
+
 
 // Manually calculate __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -20,12 +24,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public'))); // Use path.join to join directories
 app.use(cookieParser());
 
+// Swagger documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 
 //import routes
+import todoRouter from "./routes/todo.routes.js";
 import userRouter from "./routes/user.route.js";
 
 //routes declaration
-app.use('/api/v1/users', userRouter)
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/todos', todoRouter);
 
 
 export { app };

@@ -17,14 +17,6 @@ const userSchema = new Schema({
         required: [true, 'Please add a password'],
         minlength: 6,
         select: false,
-    },
-    phone: {
-        type: String,
-        required: [true, 'Please add a phone number'],
-    },
-    profession: {
-        type: String,
-        required: [true, 'Please add a profession'],
     }
 }, {
     timestamps: true,
