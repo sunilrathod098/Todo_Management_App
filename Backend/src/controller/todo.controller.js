@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 const createTodo = asyncHandler(async (req, res) => {
     const { title, description, complete } = req.body;
     // console.log("Request Body:", req.body);
-    if (!title || !description || !complete === undefined) {
+    if (!title || !description || complete === undefined) {
         throw new ApiError(400, "All felids are required")
     }
 

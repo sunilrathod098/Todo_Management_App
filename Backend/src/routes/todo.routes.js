@@ -42,7 +42,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/v1/todos/addTodo:
+ * /api/v1/todos/create:
  *   post:
  *     summary: Create a new todo
  *     tags: [Todo]
@@ -60,7 +60,7 @@ const router = Router();
  *       400:
  *         description: Bad Request
  */
-router.route('/addTodo').post(verifyJWT, createTodo);
+router.route('/create').post(verifyJWT, createTodo);
 
 /**
  * @swagger
