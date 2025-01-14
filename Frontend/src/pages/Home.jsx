@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AddTodoForm from "../components/AddTodoForm";
 import TodoList from "../components/TodoList";
 import {
@@ -14,8 +14,10 @@ const Home = () => {
     useEffect(() => {
         const loadTodos = async () => {
             const data = await fetchTodos();
-            console.log("Fetched todos:", data);
+            // console.log("Fetched todos:", data);
             setTodos(data);
+            
+            console.log("Fetched todos:", data);
         };
         loadTodos();
     }, []);

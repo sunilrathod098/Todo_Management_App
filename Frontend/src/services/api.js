@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/v1';
+const API_URL = 'http://localhost:5173/api/v1/todos';
 
 const getToken = async () => {
     const token = localStorage.getItem("accessToken");
@@ -19,9 +19,15 @@ const getToken = async () => {
 export const fetchTodos = async () => {
     try {
         const token = await getToken();
-        const response = await axios.get(`${API_URL}/todos/getAllTodos`, {
-            headers: { Authorization: `Bearer ${token}` },
+        // console.log("Token :", token);
+        
+        const response = await axios.get(`${API_URL}/getAllTodos`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
         });
+        // console.log("logging the response: ", response);
         return response.status === 200 ? response.data.data : [];
     } catch (error) {
         handleAuthError(error);
@@ -33,9 +39,11 @@ export const fetchTodos = async () => {
 export const createTodo = async (todoData) => {
     try {
         const token = await getToken();
-        const response = await axios.post(`${API_URL}/todos/create`, todoData, {
-            headers: { Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json' },
+        const response = await axios.post(`${API_URL}/create`, todoData, {
+            headers: { 
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
         });
         return response.status === 201 ? response.data.data : null;
     } catch (error) {
@@ -48,9 +56,11 @@ export const createTodo = async (todoData) => {
 export const updateTodo = async (todoId, updatedData) => {
     try {
         const token = await getToken();
-        const response = await axios.put(`${API_URL}/todos/update/${todoId}`, updatedData, {
-            headers: { Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json' },
+        const response = await axios.put(`${API_URL}/update/${todoId}`, updatedData, {
+            headers: { 
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
         });
         return response.status === 200 ? response.data.data : null;
     } catch (error) {
@@ -63,7 +73,7 @@ export const updateTodo = async (todoId, updatedData) => {
 export const deleteTodo = async (todoId) => {
     try {
         const token = await getToken();
-        const response = await axios.delete(`${API_URL}/todos/delete/${todoId}`, {
+        const response = await axios.delete(`${API_URL}/delete/${todoId}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         return response.status === 200;
@@ -76,6 +86,6 @@ export const deleteTodo = async (todoId) => {
 // Handle authorization errors
 const handleAuthError = (error) => {
     localStorage.removeItem('token');
-    alert('Session expired. Please log in again.');
+    alert('Session expired. Please log in again.', error.message);
     window.location.href = "/"; // Redirect to login page
 };

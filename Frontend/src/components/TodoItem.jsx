@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 const TodoItem = ({ todo, updateTodo, deleteTodo }) => {
     const toggleComplete = () => {
@@ -29,6 +29,16 @@ const TodoItem = ({ todo, updateTodo, deleteTodo }) => {
             </div>
         </div>
     );
+};
+TodoItem.propTypes = {
+    todo: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        complete: PropTypes.bool.isRequired,
+        _id: PropTypes.string.isRequired,
+    }).isRequired,
+    updateTodo: PropTypes.func.isRequired,
+    deleteTodo: PropTypes.func.isRequired,
 };
 
 export default TodoItem;

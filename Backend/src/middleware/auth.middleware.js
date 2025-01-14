@@ -7,7 +7,7 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
     try {
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer", "")
 
-        //check if the token is missing
+        //check if the token is missing or not
         if (!token) {
             throw new ApiError(401, "Unauthorized request")
         }
@@ -16,9 +16,7 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 
         //find the token by user without sensitive feilds
-        const user = await User.findById(decodedToken?._id).select(
-            "-password -refreshToken"
-        )
+        const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
 
         //check if the user is exist or not
         if (!user) {

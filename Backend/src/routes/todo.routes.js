@@ -28,7 +28,7 @@ const router = Router();
  *         description:
  *           type: string
  *           description: The description of the todo
- *         completed:
+ *         complete:
  *           type: boolean
  *           description: The status of the todo
  */

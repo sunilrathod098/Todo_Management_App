@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
-import TodoList from "./components/TodoList.jsx";
+import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-import Home from "./pages/Home.jsx";
+import SwaggerDocumentation from './swggerConfig.jsx';
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/todos" element={<Home />} />
+            <Route path="/api-docs" element={<SwaggerDocumentation />} />
           </Routes>
         </div>
         <Footer />

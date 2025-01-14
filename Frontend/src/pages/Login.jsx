@@ -1,52 +1,61 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
-    const [name, setName] = useState("");
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleRegister = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // Replace with your API call
+
         try {
-            const response = await fetch("/api/v1/users/register", {
+            const response = await fetch("/api/v1/users/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, password }),
+                body: JSON.stringify({ email, password }),
             });
-
+            console.log("Logged in response: ", response);
+            
             if (response.ok) {
-                navigate("/");
+                // Get response JSON
+                const data = await response.json();
+
+                console.log("Login response: ", data);
+
+                // Ensure tokens are in the response before accessing
+                if (data && data.data && data.data.tokens) {
+                    // Store tokens in localStorage
+                    localStorage.setItem("accessToken", data.data.tokens.accessToken);
+                    localStorage.setItem("refreshToken", data.data.tokens.refreshToken);
+
+                    // Navigate to Todos page
+                    navigate("/todos");
+                } else {
+                    console.error("Tokens not found in response");
+                    alert("Something went wrong while logging in. Please try again.");
+                }
             } else {
-                alert("Registration failed");
+                alert("Invalid credentials");
             }
         } catch (error) {
-            console.error("Registration error", error);
+            console.error("Login error", error);
         }
     };
 
     return (
         <div className="flex items-center justify-center h-screen bg-gray-200">
             <form
-                onSubmit={handleRegister}
+                onSubmit={handleLogin}
                 className="w-full max-w-md p-6 bg-white rounded shadow-md"
             >
-                <h2 className="mb-6 text-2xl font-bold text-center text-gray-700">Register</h2>
+                <h2 className="mb-6 text-2xl font-bold text-center text-gray-700">
+                    Login
+                </h2>
                 <div className="mb-4">
-                    <label className="block text-sm font-semibold text-gray-700">Name</label>
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full px-3 py-2 mt-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-                        placeholder="Enter your name"
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-semibold text-gray-700">Email</label>
+                    <label className="block text-sm font-semibold text-gray-700">
+                        Email
+                    </label>
                     <input
                         type="email"
                         value={email}
@@ -57,7 +66,9 @@ const Register = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-semibold text-gray-700">Password</label>
+                    <label className="block text-sm font-semibold text-gray-700">
+                        Password
+                    </label>
                     <input
                         type="password"
                         value={password}
@@ -71,15 +82,15 @@ const Register = () => {
                     type="submit"
                     className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
                 >
-                    Register
+                    Login
                 </button>
                 <p className="mt-4 text-sm text-center">
-                    Already have an account?{" "}
+                    Don&apos;t have an account?{" "}
                     <a
-                        href="/"
+                        href="/register"
                         className="font-semibold text-blue-600 hover:underline"
                     >
-                        Login
+                        Register
                     </a>
                 </p>
             </form>
@@ -87,4 +98,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Login;
