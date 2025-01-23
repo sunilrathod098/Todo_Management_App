@@ -2,13 +2,12 @@ import { ApiError } from '../config/ApiError.js';
 import { ApiResponse } from '../config/ApiResponse.js';
 import { asyncHandler } from "../config/asyncHandler.js";
 import { Todo } from '../model/todo.model.js';
-import mongoose from 'mongoose';
 
 //create new todos
 const createTodo = asyncHandler(async (req, res) => {
-    const { title, description, complete } = req.body;
+    const { title, description, complete = false } = req.body;
     // console.log("Request Body:", req.body);
-    if (!title || !description || complete === undefined) {
+    if (!title || !description) {
         throw new ApiError(400, "All felids are required")
     }
 
@@ -16,8 +15,8 @@ const createTodo = asyncHandler(async (req, res) => {
     const newTodo = await Todo.create({
         title,
         description,
-        complete: complete || false,
-        user: userId
+        complete,
+        user: userId,
     });
     if (!newTodo) {
         throw new ApiError(500, "Failed to create new Todos")
@@ -58,22 +57,22 @@ const updateTodo = asyncHandler(async (req, res) => {
     if (!title || !description || !complete === undefined) {
         throw new ApiError(400, "All fields are required")
     }
-    const todo = await Todo.findByIdAndUpdate(todoId, {
+    const updatedTodo = await Todo.findByIdAndUpdate(todoId, {
         title,
-        description,    
+        description,
         complete
     },
         {
             new: true
         })
-    if (!todo) {
+    if (!updatedTodo) {
         throw new ApiError(404, "Todo not found or you do not have permission to update it.")
     }
 
     return res.status(200).json(new ApiResponse(
         200,
         "Todo updated successfully",
-        todo
+        updatedTodo
     ));
 })
 
@@ -94,12 +93,12 @@ const deleteTodo = asyncHandler(async (req, res) => {
         throw new ApiError(403, "You do not have permission to delete this todo.");
     }
 
+    await todo.remove();
     // Delete the Todo
-    const deletedTodo = await Todo.findByIdAndDelete(todoId);
+    // const deletedTodo = await Todo.findByIdAndDelete(todoId);
     return res.status(200).json(new ApiResponse(
         200,
-        "Todo deleted successfully.",
-        deletedTodo
+        "Todo deleted successfully."
     ));
 });
 

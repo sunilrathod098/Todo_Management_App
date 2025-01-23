@@ -37,8 +37,11 @@ const router = Router();
  * @swagger
  * tags:
  *   name: Todo
- *   description: Todo related operations
+ *   description: Todo management
  */
+
+// Apply JWT verification middleware to all routes
+router.use(verifyJWT);
 
 /**
  * @swagger
@@ -58,23 +61,31 @@ const router = Router();
  *       201:
  *         description: The todo was successfully created
  *       400:
- *         description: Bad Request
+ *         description: Missing or invalid fields
  */
-router.route('/create').post(verifyJWT, createTodo);
+router.post('/create',verifyJWT, createTodo);
 
 /**
  * @swagger
- * /api/v1/todos/getAllTodos:
+ * /api/v1/todos/fetchAllTodos:
  *   get:
- *     summary: Get all todos
+ *     summary: Get all todos for the authenticated user
  *     tags: [Todo]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of todos
+ *         description: List of todos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Todo'
+ *       404:
+ *         description: No todos found
  */
-router.route('/getAllTodos').get(verifyJWT, getAllTodos);
+router.get('/fetchAllTodos',verifyJWT, getAllTodos);
 
 /**
  * @swagger
@@ -88,7 +99,7 @@ router.route('/getAllTodos').get(verifyJWT, getAllTodos);
  *         schema:
  *           type: string
  *         required: true
- *         description: The todo ID
+ *         description: The ID of the todo
  *     requestBody:
  *       required: true
  *       content:
@@ -97,11 +108,13 @@ router.route('/getAllTodos').get(verifyJWT, getAllTodos);
  *             $ref: '#/components/schemas/Todo'
  *     responses:
  *       200:
- *         description: The todo was updated
+ *         description: Todo updated successfully
+ *       400:
+ *         description: Invalid or missing fields
  *       404:
  *         description: Todo not found
  */
-router.route('/update/:id').put(verifyJWT, updateTodo);
+router.put('/update/:id',verifyJWT, updateTodo);
 
 /**
  * @swagger
@@ -115,13 +128,15 @@ router.route('/update/:id').put(verifyJWT, updateTodo);
  *         schema:
  *           type: string
  *         required: true
- *         description: The todo ID
+ *         description: The ID of the todo
  *     responses:
- *       200:
- *         description: The todo was deleted
+ *       204:
+ *         description: Todo deleted successfully
+ *       403:
+ *         description: Unauthorized
  *       404:
  *         description: Todo not found
  */
-router.route('/delete/:id').delete(verifyJWT, deleteTodo);
+router.delete('/delete/:id',verifyJWT, deleteTodo);
 
 export default router;

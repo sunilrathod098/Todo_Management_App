@@ -42,8 +42,6 @@ userSchema.methods.isPasswordCorrect = async function (password) {
         throw new Error("Password or hash is missing");
     }
     return await bcrypt.compare(password, this.password)
-    console.log("check plain password: ", this.password);
-    
 }
 // console.log("check plain password: ", this.password);
 

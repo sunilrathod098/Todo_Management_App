@@ -13,7 +13,7 @@ connectDB()
     .then(() => {
         app.listen(PORT, () => {
             console.log(` Server running on http://localhost:${process.env.PORT}`)
-            console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
+            console.log(` Swagger running on http://localhost:${PORT}/api-docs`);
         })
         app.on("error", (err) => {
             console.log("Error: ", err);
