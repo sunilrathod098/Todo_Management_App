@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi"; // Import the icons
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
@@ -10,6 +11,7 @@ export default function RegisterPage() {
 
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);  // New state for password visibility
     const navigate = useNavigate();
 
     // Handle form input changes
@@ -94,7 +96,7 @@ export default function RegisterPage() {
                             required
                         />
                     </div>
-                    <div>
+                    <div className="relative">
                         <label
                             htmlFor="password"
                             className="block text-sm font-medium text-gray-50"
@@ -102,7 +104,7 @@ export default function RegisterPage() {
                             Password
                         </label>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             id="password"
                             name="password"
                             value={formData.password}
@@ -110,6 +112,17 @@ export default function RegisterPage() {
                             className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             required
                         />
+                        <button
+                            type="button"
+                            className="absolute right-2 top-10 transform -translate-y-1/2 text-gray-800"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                        >
+                            {showPassword ? (
+                                <FiEyeOff className="h-5 w-5" />
+                            ) : (
+                                <FiEye className="h-5 w-5" />
+                            )}
+                        </button>
                     </div>
                     <button
                         type="submit"
