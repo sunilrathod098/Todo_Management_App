@@ -8,17 +8,17 @@ import RegisterPage from './pages/register'
 
 
 const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-    <Route path="/" element={<HomePage />} />
-    <Route path="/register" element={<RegisterPage />} />
-    <Route path="/login" element={<LoginPage />} />
-    </>
-  )
+createRoutesFromElements(
+<>
+<Route path="/" element={<HomePage />} />
+<Route path="/register" element={<RegisterPage />} />
+<Route path="/login" element={<LoginPage />} />
+</>
+)
 );
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+<StrictMode>
+<RouterProvider router={router} />
+</StrictMode>,
 )

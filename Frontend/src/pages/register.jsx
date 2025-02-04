@@ -54,8 +54,8 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white">
+            <div className="bg-gray-800 shadow-md rounded-lg p-8 max-w-md w-full">
                 <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
                 {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                 {message && <p className="text-green-500 text-sm mb-4">{message}</p>}
@@ -63,7 +63,7 @@ export default function RegisterPage() {
                     <div>
                         <label
                             htmlFor="name"
-                            className="block text-sm font-medium text-gray-700"
+                            className="block text-sm font-medium text-gray-50"
                         >
                             Name
                         </label>
@@ -73,14 +73,14 @@ export default function RegisterPage() {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             required
                         />
                     </div>
                     <div>
                         <label
                             htmlFor="email"
-                            className="block text-sm font-medium text-gray-700"
+                            className="block text-sm font-medium text-gray-50"
                         >
                             Email
                         </label>
@@ -90,14 +90,14 @@ export default function RegisterPage() {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             required
                         />
                     </div>
                     <div>
                         <label
                             htmlFor="password"
-                            className="block text-sm font-medium text-gray-700"
+                            className="block text-sm font-medium text-gray-50"
                         >
                             Password
                         </label>
@@ -107,7 +107,7 @@ export default function RegisterPage() {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             required
                         />
                     </div>
@@ -122,4 +122,3 @@ export default function RegisterPage() {
         </div>
     );
 }
-

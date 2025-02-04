@@ -57,35 +57,35 @@ export default function LoginPage() {
 
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white">
+            <div className="bg-gray-700 shadow-md rounded-lg p-8 max-w-md w-full">
                 <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
                 {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                 {message && <p className="text-green-500 text-sm mb-4">{message}</p>}
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="email"
-                            className="block text-sm font-medium text-gray-700">Email</label>
+                            className="block text-sm font-medium text-gray-50">Email</label>
                         <input
                             type="email"
                             id="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             required
                         />
                     </div>
                     <div>
                         <label htmlFor="password"
-                            className="block text-sm font-medium text-gray-700">Password</label>
+                            className="block text-sm font-medium text-gray-50">Password</label>
                         <input
                             type="password"
                             id="password"
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             required
                         />
                     </div>
@@ -94,8 +94,8 @@ export default function LoginPage() {
                         className="w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">Login</button>
                 </form>
                 <div className="mt-4 text-center">
-                    <p className="text-sm text-gray-600">Don&apos;t have an account?
-                        <button className="text-indigo-500 hover:underline ml-4"
+                    <p className="text-sm text-gray-50">Don&apos;t have an account?
+                        <button className="text-blue-500 hover:underline ml-4"
                             onClick={() => navigate("/register")}> Register here</button>
                     </p>
                 </div>
