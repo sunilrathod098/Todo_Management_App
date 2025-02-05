@@ -10,7 +10,6 @@ export default function LoginPage() {
         email: "",
         password: "",
     });
-
     const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
     // Handle form input changes
@@ -35,13 +34,13 @@ export default function LoginPage() {
             return;
         }
         try {
-            const response = await fetch("http://localhost:5000/api/v1/users/login", {
+            const response = await fetch("http://localhost:5050/api/v1/users/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(formData),
-                credentials: "include", // Include cookies in the request
+                credentials: "include", // here we include cookies in the request
             });
 
             // Check if the response was successful
@@ -54,9 +53,14 @@ export default function LoginPage() {
             setMessage(data?.message || "Login successful.");
             setFormData({ email: "", password: "" });
 
+            localStorage.setItem("userName", data?.user?.name);
+            
+            if (data?.token) {
+                localStorage.setItem("accessToken", data.token);
+            }
             // Redirect to the home page
             setTimeout(() => {
-                navigate("/");
+                navigate("/todos");
             }, 2000);
         } catch (err) {
             setError(err.message || "An error occurred during login.");
@@ -65,7 +69,7 @@ export default function LoginPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white">
-            <div className="bg-gray-700 shadow-md rounded-lg p-8 max-w-md w-full">
+            <div className="bg-gray-800 shadow-md rounded-lg p-8 max-w-md w-full">
                 <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
                 {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                 {message && <p className="text-green-500 text-sm mb-4">{message}</p>}

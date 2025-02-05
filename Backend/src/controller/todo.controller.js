@@ -41,7 +41,7 @@ const getAllTodos = asyncHandler(async (req, res) => {
         throw new ApiError(404, "No todo's found")
     }
 
-    return res.status(201).json(new ApiResponse(
+    return res.status(200).json(new ApiResponse(
         200,
         "Todos found successfully",
         todo
@@ -54,7 +54,7 @@ const updateTodo = asyncHandler(async (req, res) => {
     const { title, description, complete } = req.body;
     const todoId = req.params.id;
 
-    if (!title || !description || !complete === undefined) {
+    if (!title || !description || complete === undefined) {
         throw new ApiError(400, "All fields are required")
     }
     const updatedTodo = await Todo.findByIdAndUpdate(todoId, {
@@ -93,9 +93,7 @@ const deleteTodo = asyncHandler(async (req, res) => {
         throw new ApiError(403, "You do not have permission to delete this todo.");
     }
 
-    await todo.remove();
-    // Delete the Todo
-    // const deletedTodo = await Todo.findByIdAndDelete(todoId);
+    await Todo.findByIdAndDelete(todoId);
     return res.status(200).json(new ApiResponse(
         200,
         "Todo deleted successfully."

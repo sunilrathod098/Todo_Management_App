@@ -32,7 +32,7 @@ export default function RegisterPage() {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/api/v1/users/register", {
+            const response = await fetch("http://localhost:5050/api/v1/users/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -49,6 +49,9 @@ export default function RegisterPage() {
             const data = await response.json();
             setMessage(data?.message || "User registered successfully.");
             setFormData({ name: "", email: "", password: "" });
+
+            localStorage.setItem("userName", data?.user?.name);
+            
             navigate("/login");
         } catch (err) {
             setError(err.message || "An error occurred during registration.");

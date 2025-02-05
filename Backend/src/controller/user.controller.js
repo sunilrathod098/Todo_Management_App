@@ -126,6 +126,25 @@ const loginUser = asyncHandler(async (req, res) => {
         );
 });
 
-export {
-    loginUser, registerUser
-};
+const getUserInfo = asyncHandler(async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select("-password -refreshToken");
+        console.log("User from request:", req.user);
+        if (!user) {
+            return res.status(404).json({
+                success: true,
+                name: user.name,
+                message: "User not found"
+            });
+        }
+        return res.status(200).json(new ApiResponse(200, user, "User info fetched successfully"));
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+});
+
+export { getUserInfo, loginUser, registerUser };
+

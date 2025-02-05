@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { loginUser, registerUser } from "../controller/user.controller.js";
+import { getUserInfo, loginUser, registerUser } from "../controller/user.controller.js";
+import { verifyJWT } from "../middleware/auth.middleware.js"; // Import middleware
 
 const router = Router();
 
@@ -38,6 +39,7 @@ const router = Router();
  *       400:
  *         description: Bad Request
  */
+router.route("/register").post(registerUser);
 
 /**
  * @swagger
@@ -64,7 +66,33 @@ const router = Router();
  *       401:
  *         description: Unauthorized
  */
-router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
+
+/**
+ * @swagger
+ * /api/v1/users/userInfo:
+ *   get:
+ *     summary: Retrieve user information
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved user info
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *       401:
+ *         description: Unauthorized - Token missing or invalid
+ */
+router.route("/userInfo").get(verifyJWT, getUserInfo);
 
 export default router;
