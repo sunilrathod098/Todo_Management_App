@@ -28,9 +28,14 @@ const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
 
     //validation - check
-    if (
-        [name, email, password].some((field) => field?.trim() === "")
-    ) {
+    // if (
+    //     [name, email, password].some((field) => field?.trim() === "")
+    // ) {
+    //     throw new ApiError(400, "All fields are required")
+    // }
+
+    //validation
+    if (![name, email, password].every(Boolean)) {
         throw new ApiError(400, "All fields are required")
     }
 
@@ -79,9 +84,10 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email }).select("+password")
 
     if (!user) {
-        throw new ApiError(404, "User not found")
+        throw new ApiError(404, "User not found");
+        
     }
-
+    
     //compare provided password and stored one
     const isPasswordValid = await user.isPasswordCorrect(password)
 
@@ -92,7 +98,6 @@ const loginUser = asyncHandler(async (req, res) => {
     //generate refreshToken and AccessToken
     const { accessToken, refreshToken } = await
         generateAccessTokenAndRefreshToken(user._id)
-
 
     //retrieve user info without sensitive felids
     const loggedInUser = await User.findById(user._id).
@@ -127,17 +132,18 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const getUserInfo = asyncHandler(async (req, res) => {
+    if (!req.user || !req.user._id) {
+        throw new ApiError(401, "Unauthorized");
+    }
+
     try {
         const user = await User.findById(req.user._id).select("-password -refreshToken");
-        console.log("User from request:", req.user);
         if (!user) {
-            return res.status(404).json({
-                success: true,
-                name: user.name,
-                message: "User not found"
-            });
-        }
+        console.error("Get User Info Failed: User not found");
+        throw new ApiError(404, "User not found");
+    }
         return res.status(200).json(new ApiResponse(200, user, "User info fetched successfully"));
+        
     } catch (error) {
         return res.status(500).json({
             success: false,

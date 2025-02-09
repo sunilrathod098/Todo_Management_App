@@ -26,12 +26,11 @@ const userSchema = new Schema({
 //this are the middleware functions save before user run
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password"))
-        return next()
+        return next();
 
     //this method is user for encrypt (into a hash code unreadble message type) the password
     this.password = await bcrypt.hash(this.password, 10);
-    next()
-    console.log("check plain password: ", password);
+    next();
 })
 
 
@@ -43,7 +42,6 @@ userSchema.methods.isPasswordCorrect = async function (password) {
     }
     return await bcrypt.compare(password, this.password)
 }
-// console.log("check plain password: ", this.password);
 
 //this code is generate a access token
 userSchema.methods.generateAccessToken = function () {

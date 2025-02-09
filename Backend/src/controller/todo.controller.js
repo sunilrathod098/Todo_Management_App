@@ -6,9 +6,10 @@ import { Todo } from '../model/todo.model.js';
 //create new todos
 const createTodo = asyncHandler(async (req, res) => {
     const { title, description, complete = false } = req.body;
-    // console.log("Request Body:", req.body);
     if (!title || !description) {
-        throw new ApiError(400, "All felids are required")
+        throw new ApiError(404, "All felids are required");
+        console.log("All felids are required");
+        
     }
 
     const userId = req.user._id
@@ -39,6 +40,8 @@ const getAllTodos = asyncHandler(async (req, res) => {
     });
     if (!todo || todo.length === 0) {
         throw new ApiError(404, "No todo's found")
+        console.log("No todo's found");
+        
     }
 
     return res.status(200).json(new ApiResponse(
@@ -66,7 +69,9 @@ const updateTodo = asyncHandler(async (req, res) => {
             new: true
         })
     if (!updatedTodo) {
-        throw new ApiError(404, "Todo not found or you do not have permission to update it.")
+        throw new ApiError(404, "Todo not found or you do not have permission to update it.");
+        console.log("Todo not found or you do not have permission to update it.");
+        
     }
 
     return res.status(200).json(new ApiResponse(
@@ -86,6 +91,8 @@ const deleteTodo = asyncHandler(async (req, res) => {
     const todo = await Todo.findById(todoId);
     if (!todo) {
         throw new ApiError(404, "Todo not found or you do not have permission to delete it.");
+        console.log("Todo not found or you do not have permission to delete it.");
+        
     }
 
     // Compare user ID

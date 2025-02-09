@@ -36,9 +36,15 @@ const TodoPage = () => {
 
     const fetchUserInfo = async () => {
         try {
-            // setLoadingUser(true);
+            setLoadingUser(true);
             const token = localStorage.getItem("accessToken");
-            console.log("Access Token:", token);
+
+            if (!token) {
+                console.warn("No access token found, setting Guest as default user.");
+                setUserName("Guest");
+                setLoadingUser(false);
+                return;
+            }
             const response = await axiosInstance.get("/users/userInfo", {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -50,15 +56,14 @@ const TodoPage = () => {
                 setUserName(response.data.name);
                 console.log("User Name:", response.data.name);
             } else {
-                console.error("Error fetching user info:", response.data.message);
-                console.log("Full response:", response.data);
+                console.warn("Invalid user response, setting Guest.");
                 setUserName("Guest");
             }
         } catch (error) {
             console.error("Error while fetching user info:", error);
             setUserName("Guest");
         } finally {
-            // setLoadingUser(false);
+            setLoadingUser(false);
         }
     };
 
@@ -71,7 +76,6 @@ const TodoPage = () => {
         try {
             const response = await axiosInstance.post("/todos/create", newTodo);
             console.log("Created todo:", response.data);
-
             if (response.data.success) {
                 const newTodoItem = response.data.message;
                 setTodos([...todos, newTodoItem]);
@@ -88,12 +92,11 @@ const TodoPage = () => {
 
     const handleUpdateTodo = async (e) => {
         e.preventDefault();
-
+        
         if (!editingTodo || !editingTodo._id) {
             console.error("No todo selected for update");
             return;
         }
-
         try {
             const response = await axiosInstance.put(
                 `/todos/update/${editingTodo._id}`,
@@ -143,10 +146,10 @@ const TodoPage = () => {
         <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-10">
             <h2 className="text-3xl font-bold mb-6">Todo Management</h2>
             {loadingUser ? (
-                <p className="text-xl text-white mb-4">Welcome, {userName}</p>
-            ) : (
                 <p>Loading user...</p>
-            )}{" "}
+            ) : (
+                <p className="text-xl text-white mb-4">Welcome, {userName}</p>
+            )}
             {/* Display user's name */}
             <div className="bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-4xl">
                 <h3 className="text-xl font-semibold mb-4">Create Todo</h3>
