@@ -9,18 +9,19 @@ import TodoPage from './pages/todos'
 
 
 const router = createBrowserRouter(
-createRoutesFromElements(
-<>
-<Route path="/" element={<HomePage />} />
-<Route path="/register" element={<RegisterPage />} />
-<Route path="/login" element={<LoginPage />} />
-<Route path="/todos" element={<TodoPage />} />
-</>
-)
+    createRoutesFromElements(
+        <>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/todos" element={<TodoPage />} />
+        </>
+    )
 );
 
 createRoot(document.getElementById('root')).render(
-<StrictMode>
-<RouterProvider router={router} />
-</StrictMode>,
+    <StrictMode>
+        <RouterProvider router={router} />
+    </StrictMode>,
 )
+

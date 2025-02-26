@@ -45,27 +45,61 @@ const TodoPage = () => {
                 setLoadingUser(false);
                 return;
             }
+
+            console.log("Fetching user info with token:", token);
+
             const response = await axiosInstance.get("/users/userInfo", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log("User info response:", response.data);
 
-            if (response.data.success && response.data.name) {
-                setUserName(response.data.name);
-                console.log("User Name:", response.data.name);
+            console.log("Full API response:", response); // Log full response
+            console.log("Response data:", response.data); // Log response data only
+
+            if (!response.data) {
+                console.warn("Response data is undefined, setting Guest.");
+                setUserName("Guest");
+                return;
+            }
+
+            console.log(
+                "API response structure:",
+                JSON.stringify(response.data, null, 2)
+            );
+
+            // Check if response has expected structure
+            if (response.data.success) {
+                if (response.data.data.name) {
+                    setUserName(response.data.data.name);
+                    console.log("User Name Set:", response.data.name);
+                } else {
+                    console.warn("Response missing 'name', setting Guest.");
+                    setUserName("Guest");
+                }
             } else {
-                console.warn("Invalid user response, setting Guest.");
+                console.warn("Response not successful, setting Guest.");
+                console.log("Received API response:", response.data);
                 setUserName("Guest");
             }
         } catch (error) {
             console.error("Error while fetching user info:", error);
+
+            // Handle unauthorized error
+            if (error.response) {
+                console.log("Error Response:", error.response);
+                if (error.response.status === 401) {
+                    console.warn("Unauthorized access, redirecting to login.");
+                    localStorage.removeItem("accessToken"); // Clear invalid token
+                }
+            }
             setUserName("Guest");
         } finally {
             setLoadingUser(false);
         }
     };
+
+
 
     const handleCreateTodo = async (e) => {
         e.preventDefault();
@@ -92,7 +126,7 @@ const TodoPage = () => {
 
     const handleUpdateTodo = async (e) => {
         e.preventDefault();
-        
+
         if (!editingTodo || !editingTodo._id) {
             console.error("No todo selected for update");
             return;
