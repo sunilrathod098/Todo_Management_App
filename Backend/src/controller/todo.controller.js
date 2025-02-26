@@ -6,6 +6,9 @@ import { Todo } from '../model/todo.model.js';
 //create new todos
 const createTodo = asyncHandler(async (req, res) => {
     const { title, description, complete = false } = req.body;
+
+    console.log("request body: ", req.body);
+    
     if (!title || !description) {
         throw new ApiError(404, "All felids are required");
         console.log("All felids are required");
@@ -38,6 +41,9 @@ const getAllTodos = asyncHandler(async (req, res) => {
     const todo = await Todo.find({
         user: userId
     });
+
+    console.log("todos: ", todo);
+    
     if (!todo || todo.length === 0) {
         throw new ApiError(404, "No todo's found")
         console.log("No todo's found");
@@ -68,6 +74,9 @@ const updateTodo = asyncHandler(async (req, res) => {
         {
             new: true
         })
+    
+    console.log("updatedTodo: ", updatedTodo);
+    
     if (!updatedTodo) {
         throw new ApiError(404, "Todo not found or you do not have permission to update it.");
         console.log("Todo not found or you do not have permission to update it.");
@@ -89,6 +98,9 @@ const deleteTodo = asyncHandler(async (req, res) => {
     const userId = req.user._id.toString(); // Convert ObjectId to string
 
     const todo = await Todo.findById(todoId);
+
+    console.log("todo: ", todo);
+    
     if (!todo) {
         throw new ApiError(404, "Todo not found or you do not have permission to delete it.");
         console.log("Todo not found or you do not have permission to delete it.");
