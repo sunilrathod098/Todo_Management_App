@@ -7,7 +7,7 @@ import { Todo } from '../model/todo.model.js';
 const createTodo = asyncHandler(async (req, res) => {
     const { title, description, complete = false } = req.body;
 
-    console.log("request body: ", req.body);
+    // console.log("request body: ", req.body);
     
     if (!title || !description) {
         throw new ApiError(404, "All felids are required");
