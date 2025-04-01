@@ -136,11 +136,13 @@ const TodoPage = () => {
                 `/todos/update/${editingTodo._id}`,
                 editingTodo
             );
+            console.log("Update response:", response.data);
+            
             if (response.data.success) {
                 setTodos((prevTodos) =>
                     prevTodos.map((todo) =>
                         todo._id === editingTodo._id
-                            ? { ...todo, ...response.data.data }
+                            ? { ...todo, ...response.data.message }
                             : todo
                     )
                 );
