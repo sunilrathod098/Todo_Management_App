@@ -5,9 +5,7 @@
             "src": "client/package.json",
             "use": "@vercel/static-build",
             "config": {
-                "distDir": "dist",
-                "installCommand": "cd ../client && npm install",
-                "buildCommand": "cd ../client && npm run build"
+                "distDir": "dist"
             }
         },
         {
@@ -17,7 +15,7 @@
     ],
     "routes": [
         {
-            "src": "/api/(.*)",
+            "src": "/api/v1/(.*)",
             "dest": "server/src/index.js"
         },
         {

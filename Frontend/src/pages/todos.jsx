@@ -18,7 +18,6 @@ const TodoPage = () => {
     const fetchTodos = async () => {
         try {
             const response = await axiosInstance.get("/todos/fetchAllTodos");
-            console.log("Fetched todos:", response.data);
 
             if (response.data.success && Array.isArray(response.data.message)) {
                 setTodos(response.data.message);

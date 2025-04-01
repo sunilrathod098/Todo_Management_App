@@ -16,7 +16,10 @@ const app = express();
 
 //Middleware
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: [
+        "http://localhost:5173", // Development
+        "https://your-vercel-app-url.vercel.app" // Production
+    ],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
